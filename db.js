@@ -1,9 +1,17 @@
 const mongoose = require('mongoose');
-const mongoURL = 'mongodb://localhost:27017/inotebook';
-const connectToMongo = () => {
-    mongoose.connect(mongoURL,()=>{
-        console.log("connected to your database successfully");
-    })
+const dotenv=require('dotenv')
+
+dotenv.config();
+const mongoURL = process.env.MONGO_URL;
+
+const connectToMongo = async() => {
+    try {
+        await mongoose.connect(mongoURL);
+        console.log("Connected To database Successfully")
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports = connectToMongo;
